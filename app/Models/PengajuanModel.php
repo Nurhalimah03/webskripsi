@@ -8,23 +8,53 @@ use Illuminate\Support\Facades\DB;
 
 class PengajuanModel extends Model
 {
+    use HasFactory;
+    public $builder;
+
     protected $table = "tbl_pengajuan";
     protected $guarded = [];
     public $timestamps = false;
+    protected $fillable = [
+        'kk',
+        'nik',
+        'nama',
+        'alamat',
+        'status',
+    ];
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->builder = DB::table($this->table);
+    }
 
     public function allData()
     {
-       return DB::table('tbl_pengajuan')->get();
+        return $this->builder->get();
     }
 
     public function detailData($id)
     {
-        return DB::table('tbl_pengajuan')->where('id', $id)->first();
+        return $this->builder->where('id', $id)->first();
     }
 
     public function addData($data)
     {
-        DB::table('tbl_pengajuan')->insert($data);
+        $this->builder->insert($data);
+    }
+
+    public function search($key)
+    {
+        return $this->builder->get('key', $key);
+    }
+
+    // Get pengajuan grouped by status
+    public function getChart()
+    {
+        $query = $this->builder
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')->all();
+        return $query;
     }
 }

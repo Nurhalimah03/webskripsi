@@ -35,7 +35,7 @@
                       <label class="col-sm-3 col-form-label">No Kartu Keluarga</label>
                       <div class="col-sm-9">
                         <input name="kk" type="number" class="form-control" id="kk" value="{{ old('kk') }}"
-                        placeholder="Masukan no kartu keluarkan" required autocomplete="kk" autofocus/>
+                        placeholder="Masukan no kartu keluarkan" autofocus/>
                         <div class="text-danger">
                             @error('kk')
                                 {{ $message }}
@@ -48,7 +48,7 @@
                       <label class="col-sm-3 col-form-label">NIK</label>
                       <div class="col-sm-9">
                         <input name="nik" type="number" class="form-control" id="nik" value="{{ old('nik') }}"
-                        placeholder="Masukan NIK" required autocomplete="nik" autofocus/>
+                        placeholder="Masukan NIK" />
                         <div class="text-danger">
                             @error('nik')
                                 {{ $message }}
@@ -61,7 +61,7 @@
                         <label class="col-sm-3 col-form-label">Nama</label>
                         <div class="col-sm-9">
                           <input name="nama" type="text" class="form-control" id="nama" value="{{ old('nama') }}"
-                          placeholder="Masukan nama yang mengajukan" required autocomplete="nama" autofocus/>
+                          placeholder="Masukan nama yang mengajukan" />
                           <div class="text-danger">
                             @error('nama')
                                 {{ $message }}
@@ -74,7 +74,7 @@
                         <label class="col-sm-3 col-form-label">Alamat</label>
                         <div class="col-sm-9">
                           <input name="alamat" type="text" class="form-control" id="alamat" value="{{ old('alamat') }}"
-                          placeholder="Masukan alamat yang mengajukan" required autocomplete="alamat" autofocus/>
+                          placeholder="Masukan alamat yang mengajukan" />
                           <div class="text-danger">
                             @error('alamat')
                                 {{ $message }}
@@ -86,8 +86,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Jumlah tanggungan</label>
                         <div class="col-sm-9">
-                          <input nama="tanggungan" type="number" class="form-control" id="tanggungan" value="{{ old('tanggungan') }}"
-                          placeholder="Masukan jumlah tanggungan" required autocomplete="tanggungan" autofocus/>
+                          <input name="tanggungan" type="number" class="form-control" id="tanggungan" value="{{ old('tanggungan') }}"
+                          placeholder="Masukan jumlah tanggungan" />
                           <div class="text-danger">
                             @error('tanggungan')
                                 {{ $message }}
@@ -99,8 +99,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Jumlah Anak Yang Bersekolah</label>
                         <div class="col-sm-9">
-                          <input nama="sekolah" type="number" class="form-control" id="sekolah" value="{{ old('sekolah') }}"
-                          placeholder="Masukan jumlah anak yang bersekolah" required autocomplete="sekolah" autofocus/>
+                          <input name="sekolah" type="number" class="form-control" id="sekolah" value="{{ old('sekolah') }}"
+                          placeholder="Masukan jumlah anak yang bersekolah" />
                           <div class="text-danger">
                             @error('sekolah')
                                 {{ $message }}
@@ -112,8 +112,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Jumlah Lansia</label>
                         <div class="col-sm-9">
-                          <input nama="lansia" type="number" class="form-control" id="lansia" value="{{ old('lansia') }}"
-                          placeholder="masukan jumlah lansia yang tinggal" required autocomplete="lansia" autofocus/>
+                          <input name="lansia" type="number" class="form-control" id="lansia" value="{{ old('lansia') }}"
+                          placeholder="masukan jumlah lansia yang tinggal" />
                           <div class="text-danger">
                             @error('lansia')
                                 {{ $message }}
@@ -125,8 +125,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Jumlah Ibu Hamil</label>
                         <div class="col-sm-9">
-                          <input nama="bumil" type="number" class="form-control" id="bumil" value="{{ old('bumil') }}"
-                          placeholder="Masukan jumlah ibu hamil yang tinggal" required autocomplete="bumil" autofocus/>
+                          <input name="bumil" type="number" class="form-control" id="bumil" value="{{ old('bumil') }}"
+                          placeholder="Masukan jumlah ibu hamil yang tinggal" />
                           <div class="text-danger">
                             @error('bumil')
                                 {{ $message }}
@@ -138,8 +138,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Jumlah Penyandang Disabilitas</label>
                         <div class="col-sm-9">
-                          <input nama="disabilitas" type="number" class="form-control" id="disabilitas" value="{{ old('disabilitas') }}"
-                          placeholder="Masukan jumlah penyandang disabilitas yang tinggal" required autocomplete="disabilitas" autofocus/>
+                          <input name="disabilitas" type="number" class="form-control" id="disabilitas" value="{{ old('disabilitas') }}"
+                          placeholder="Masukan jumlah penyandang disabilitas yang tinggal" />
                           <div class="text-danger">
                             @error('disabilitas')
                                 {{ $message }}
@@ -148,7 +148,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-sm">Tambahkan</button>
+                    <button type="submit" class="btn btn-primary btn-sm">AJUKAN</button>
 
                 </form>
             </div>

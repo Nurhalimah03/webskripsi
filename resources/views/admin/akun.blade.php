@@ -33,11 +33,11 @@
                         </div>
                     @endif
 
-                    <!-- Main content -->
+                    @if (Auth::user()->role === 'superadmin')
                     <section class="container-fluid" style="margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-4">
-                                <a href="/akun/create" class="btn btn-success">Tambah Akun Admin</a>
+                                <a href="/register" class="btn btn-success">Tambah Akun Admin</a>
                             </div>
                         </div>
                     </section>
@@ -53,27 +53,28 @@
                                     <thead>
                                         <tr class="table-primary">
                                             <th style="width: 10px">No</th>
-                                            <th>Username</th>
+                                            <th>Email</th>
                                             <th>Nama</th>
                                             <th>Jabatan</th>
                                             <th>No HP</th>
-                                            <th>Photo</th>
-                                            <th>Aksi</th>
+                                            <th style="20px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no=1; ?>
-                                        @foreach ($admin as $data)
+                                        @foreach ($data as $data)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $data->username }}</td>
+                                                <td>{{ $data->email }}</td>
                                                 <td>{{ $data->nama }}</td>
                                                 <td>{{ $data->jabatan }}</td>
                                                 <td>{{ $data->nohp }}</td>
-                                                <td><img src="{{ url('photo/'.$data->photo) }}" width="100px"></td>
                                                 <td>
-                                                    <a href="/akun/detail/{{ $data->id }}" class="btn btn-sm btn-success">Detail</a>
-                                                    <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                                    <form action="{{ route('akun.destroy', $data->id)}}" method="post" class="d-inline">
+                                                        @csrf
+                                                        @method('put')
+                                                        <button class="btn- btn-sm btn-danger mb-2 border-0" onclick="return confirm('Yakin akan menghapus data?')">DELETE</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -82,6 +83,102 @@
                             </div>
                         </div>
                     </section>
+                    @endif
+
+                    @if (Auth::user()->role === 'admin')
+                    <section class="container-fluid">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title"><strong> Data Akun Admin PUSKESOS</strong></h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped" >
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th style="width: 10px">No</th>
+                                            <th>Email</th>
+                                            <th>Nama</th>
+                                            <th>Jabatan</th>
+                                            <th>No HP</th>
+                                            {{-- <th style="20px">Aksi</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
+                                        @foreach ($data as $data)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->nama }}</td>
+                                                <td>{{ $data->jabatan }}</td>
+                                                <td>{{ $data->nohp }}</td>
+                                                {{-- <td>
+                                                    <form action="{{ route('akun.destroy', $data->id)}}" method="post" class="d-inline">
+                                                        @csrf
+                                                        @method('put')
+                                                        <button class="btn- btn-sm btn-danger mb-2 border-0" onclick="return confirm('Yakin akan menghapus data?')">DELETE</button>
+                                                    </form>
+                                                </td> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    @endif
+                    {{-- <!-- Main content -->
+                    <section class="container-fluid" style="margin-bottom: 10px;">
+                        <div class="row">
+                            <div class="col-4">
+                                <a href="/register" class="btn btn-success">Tambah Akun Admin</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="container-fluid">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title"><strong> Data Akun Admin PUSKESOS</strong></h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped" >
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th style="width: 10px">No</th>
+                                            <th>Email</th>
+                                            <th>Nama</th>
+                                            <th>Jabatan</th>
+                                            <th>No HP</th>
+                                            <th style="20px">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
+                                        @foreach ($data as $data)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->nama }}</td>
+                                                <td>{{ $data->jabatan }}</td>
+                                                <td>{{ $data->nohp }}</td>
+                                                <td>
+                                                    <form action="{{ route('akun.destroy', $data->id)}}" method="post" class="d-inline">
+                                                        @csrf
+                                                        @method('put')
+                                                        <button class="btn- btn-sm btn-danger mb-2 border-0" onclick="return confirm('Yakin akan menghapus data?')">DELETE</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section> --}}
                 </section>
             </div>
         @endsection

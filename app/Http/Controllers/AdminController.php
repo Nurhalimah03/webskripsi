@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AdminModel;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Mime\MimeTypes;
 
 class AdminController extends Controller
@@ -15,10 +17,13 @@ class AdminController extends Controller
 
     public function index()
     {
-        $data = [
-            'admin' => $this->AdminModel->allData(),
-        ];
-        return view('admin.akun', $data);
+        // $data = DB::table('tbl_admin');
+        // $data = $data->get();
+        $data = AdminModel::All();
+        return view('admin.akun', compact('data'));
+
+        // $getUser = User::get();;
+        // return view('admin.akun', compact('getUser'));
     }
 
     public function detail($id)
@@ -40,42 +45,41 @@ class AdminController extends Controller
     public function insert(Request$request)
     {
         $this->validate($request, [
-            'username' => 'required|unique|min:4',
-            'password' => 'required',
+            'email' => 'required|unique:tbl_admin',
+            'password' => 'required|min:8',
             'nama'     => 'required',
             'jabatan'  => 'required',
             'nohp'     => 'required',
-            'photo'    => 'required|mimes:jpg,bmp,png,jpeg|max:1024',
         ],[
-            'username.required'     => 'Username wajib diisi!',
-            'username.unique'       => 'Username sudah terdaftar!',
-            'username.min'          => 'Username minimal 4 huruf!',
+            'email.required'     => 'Email wajib diisi!',
+            'email.unique'       => 'Email sudah terdaftar!',
             'password.required'     => 'Password wajib diisi!',
+            'password.min'          => 'Password minimal 8 digit',
             'nama.required'         => 'Nama wajib diisi!',
             'jabatan.required'      => 'Jabatan wajib diisi!',
             'nohp.required'         => 'No Hp wajib diisi!',
-            'photo.required'        => 'Silahkan pilih file photo!',
-            'photo.mimes'           => 'Ekstensi file tidak mendukung!',
-            'photo.max'             => 'Ukuran file terlalu besar!',
         ]);
 
-        $file = $request->photo;
-        $fileName = $request->username . '.' . $file->extension();
-        $file->move(public_path('photo'), $fileName);
 
 
 
         AdminModel::create([
-            'username'  => $request->username,
+            'email'  => $request->email,
             'password'  => $request->password,
             'nama'      => $request->nama,
             'jabatan'   => $request->jabatan,
             'nohp'      => $request->nohp,
-            'photo'     => $request->photo,
 
             ]);
 
         /*$this->AdminModel->addData($data);*/
         return redirect()->route('akun')->with('pesan', 'Akun Admin Berhasil Ditambahkan!');
+    }
+
+    public function destroy($id)
+    {
+        $idadmin = AdminModel::findOrFail($id);
+        $idadmin->delete();
+        return redirect('/akun')->with('pesan', 'Data Akun Admin Berhasil Dihapus');
     }
 }

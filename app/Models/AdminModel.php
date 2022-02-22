@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class AdminModel extends Model
 {
-    protected $table = "tbl_admin";
-    protected $guarded = [];
+    public $table = "tbl_admin";
+    public $guarded = [];
     public $timestamps = false;
 
     public function allData()

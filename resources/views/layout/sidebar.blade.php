@@ -18,45 +18,83 @@
         </div>
       </div>
 
-      <!-- Sidebar Menu -->
+
+      @if (Auth::user()->role === 'superadmin')
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="active">
+            <li class="nav-item">
+                <a href="{{ url ('/')}}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                  <p class="text">Beranda</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url ('/laporan') }}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                  <p class="text">Laporan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/akun') }}" class="nav-link">
+                    <i class="fas fa-user-cog"></i>
+                  <p class="text">Daftar Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url('/contact') }}">
+                    <i class="fas fa-phone"></i>
+                  <p class="text">Kontak Kami</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+      @endif
+
+
+      @if (Auth::user()->role === 'admin')
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+            <li class="nav-item">
                 <a href="{{ url ('/')}}" class="nav-link">
                     <i class="fas fa-home"></i>
                   <p class="text">Beranda</p>
                 </a>
             </li>
 
-          <li class="{{ request()->is('index_pengajuan') ? 'active' : '' }}">
+          <li class="nav-item">
             <a href="{{ url ('/pengajuan')}}" class="nav-link">
                 <i class="fas fa-folder-plus"></i>
               <p class="text">Data Pengajuan</p>
             </a>
           </li>
-          <li class="{{ request()->is('laporan') ? 'active' : '' }}">
+          <li class="nav-item">
             <a href="{{ url ('/laporan') }}" class="nav-link">
                 <i class="fas fa-chart-bar"></i>
               <p class="text">Laporan</p>
             </a>
           </li>
-          <li class="{{ request()->is('akun') ? 'active' : '' }}">
+          <li class="nav-item">
             <a href="{{ url('/akun') }}" class="nav-link">
                 <i class="fas fa-user-cog"></i>
-              <p class="text">Akun Admin</p>
+              <p class="text">Daftar Admin</p>
             </a>
           </li>
-          <li class="{{ request()->is('contact') ? 'active' : '' }}">
-            <a href="{{ url('/contact') }}" class="nav-link">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/contact') }}">
                 <i class="fas fa-phone"></i>
               <p class="text">Kontak Kami</p>
             </a>
           </li>
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
+
+      @endif
+
     </div>
     <!-- /.sidebar -->
   </aside>
