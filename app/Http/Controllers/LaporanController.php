@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengajuanModel;
+use Illuminate\Http\Request;
+use PDF;
 
 class LaporanController extends Controller
 {
@@ -27,5 +29,19 @@ class LaporanController extends Controller
         ];
 
         return view('pengajuan.laporan', compact('chart'));
+    }
+
+    public function download(Request $request)
+    {
+        $image = $request->image;
+        $view  = \View::make('pengajuan.export_chart', compact('image'))->render();
+        return PDF::setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'margin' => '4em 1em 4em 1em'
+        ])
+            ->loadHtml($view)
+            ->setPaper('A4')
+            ->stream(date('YmdHis') . ".pdf");
     }
 }

@@ -22,9 +22,14 @@
         </section>
 
         <div class="card-body">
+            <button onclick="downloadPdf()" class="btn btn-primary">Unduh PDF</button>
             <div class="chart-bar">
                 <canvas id="myBarChart" height="500"></canvas>
             </div>
+            <form id="my-form" action="{{ route('chartPdf') }}" method="POST">
+                {{ csrf_field() }}
+                <div id="content-images-graphics"></div>
+            </form>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"
@@ -122,6 +127,17 @@
                     },
                 }
             });
+
+            function downloadPdf() {
+                if ($('#content-images-graphics').children().length > 0) {
+                    $('#my-form').submit();
+                } else {
+                    var imgData = myBarChart.toBase64Image();
+                    var input = '<input name="image" type="hidden" value="' + imgData + '"/>'
+                    $('#content-images-graphics').append(input);
+                    $('#my-form').submit();
+                }
+            }
         </script>
     </div>
 @endsection
