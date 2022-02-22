@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AdminModel;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\Mime\MimeTypes;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
@@ -17,18 +15,35 @@ class AdminController extends Controller
 
     public function index()
     {
-        // $data = DB::table('tbl_admin');
-        // $data = $data->get();
-        $data = AdminModel::All();
-        return view('admin.akun', compact('data'));
+        return view('admin.akun');
+    }
 
-        // $getUser = User::get();;
-        // return view('admin.akun', compact('getUser'));
+    public function dtAdmin(Request $request)
+    {
+        if ($request->ajax()) {
+            $mAdmin = new AdminModel();
+            $data = $mAdmin->allData();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '
+                    <form action="' . route("akun.destroy", $row->id) . '" method="post" class="d-inline">
+                        ' . csrf_field() . '
+                        <input type="hidden" name="_method" value="PUT">
+                        <button class="btn- btn-sm btn-danger mb-2 border-0"
+                        onclick=\'return confirm("Yakin akan menghapus data?")\'">DELETE</button>
+                    </form>';
+
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function detail($id)
     {
-        if (!$this->AdminModel->detailData($id)){
+        if (!$this->AdminModel->detailData($id)) {
             abort(404);
         }
         $data = [
@@ -42,7 +57,7 @@ class AdminController extends Controller
         return view('admin.create');
     }
 
-    public function insert(Request$request)
+    public function insert(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|unique:tbl_admin',
@@ -50,7 +65,7 @@ class AdminController extends Controller
             'nama'     => 'required',
             'jabatan'  => 'required',
             'nohp'     => 'required',
-        ],[
+        ], [
             'email.required'     => 'Email wajib diisi!',
             'email.unique'       => 'Email sudah terdaftar!',
             'password.required'     => 'Password wajib diisi!',
@@ -60,9 +75,6 @@ class AdminController extends Controller
             'nohp.required'         => 'No Hp wajib diisi!',
         ]);
 
-
-
-
         AdminModel::create([
             'email'  => $request->email,
             'password'  => $request->password,
@@ -70,7 +82,7 @@ class AdminController extends Controller
             'jabatan'   => $request->jabatan,
             'nohp'      => $request->nohp,
 
-            ]);
+        ]);
 
         /*$this->AdminModel->addData($data);*/
         return redirect()->route('akun')->with('pesan', 'Akun Admin Berhasil Ditambahkan!');

@@ -39,30 +39,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pengajuan/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan.edit');
     Route::post('/pengajuan/update/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
     Route::get('/pengajuan/search', [PengajuanModel::class, 'search'])->name('pengajuan.search');
-
-    /* GET LIST USING DATATABLES */
     // Pengajuan List
     Route::post('pengajuan/list', [PengajuanController::class, 'dtPengajuan'])->name('pengajuan.list');
 
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
-    /* Route untuk admin */
-    Route::get('/akun', [AdminController::class, 'index'])->name('akun');
-    Route::get('/akun/create', [AdminController::class, 'add']);
-    Route::post('/akun/insert', [AdminController::class, 'insert']);
-    Route::put('/akun/destroy/{id}', [AdminController::class, 'destroy'])->name('akun.destroy');
-    Route::get('/akun/detail/{id}', [AdminController::class, 'detail']);
-
+    /* Route untuk super admin */
+    Route::middleware(['superadmin'])->group(function () {
+        Route::get('/akun', [AdminController::class, 'index'])->name('akun');
+        Route::get('/akun/create', [AdminController::class, 'add']);
+        Route::post('/akun/insert', [AdminController::class, 'insert']);
+        Route::put('/akun/destroy/{id}', [AdminController::class, 'destroy'])->name('akun.destroy');
+        Route::get('/akun/detail/{id}', [AdminController::class, 'detail']);
+        // Admin List
+        Route::post('akun/list', [AdminController::class, 'dtAdmin'])->name('akun.list');
+        // Route Untuk Register
+        Route::get('/register', [RegisterController::class, 'create']);
+    });
 
     Route::get('/contact', [ContactController::class, 'index']);
 
-    // Route Untuk Register
-    Route::get('/register', [RegisterController::class, 'create']);
-
-
     /*Route Untuk LogIn */
     // Route::get('/', [LoginController::class, 'index']);
-
-
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

@@ -8,22 +8,41 @@ use Illuminate\Support\Facades\DB;
 
 class AdminModel extends Model
 {
-    public $table = "tbl_admin";
+    use HasFactory;
+    public $builder;
+
+    public $table = "users";
     public $guarded = [];
     public $timestamps = false;
+    protected $fillable = [
+        'email',
+        'name',
+        'jabatan',
+        'nohp',
+        'role',
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->builder = DB::table($this->table);
+    }
 
     public function allData()
     {
-       return DB::table('tbl_admin')->get();
+        $query = $this->builder
+            ->select('*')
+            ->where('role', 'admin')->get();
+        return $query;
     }
 
     public function detailData($id)
     {
-        return DB::table('tbl_admin')->where('id', $id)->first();
+        return $this->builder->where('id', $id)->first();
     }
 
     public function addData($data)
     {
-        DB::table('tbl_admin')->insert($data);
+        $this->builder->insert($data);
     }
 }

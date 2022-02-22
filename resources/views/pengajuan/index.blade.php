@@ -97,7 +97,7 @@
                 info: true,
                 paging: true,
                 responsive: true,
-                scrollX: true,
+                scrollX: false,
                 ordering: true,
                 autoWidth: false,
 
