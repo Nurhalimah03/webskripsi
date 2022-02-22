@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Laravel Graphs PDF</title>
+    <title>Laporan Grafik Pengajuan</title>
     <style type="text/css">
         .text-center {
             text-align: center;

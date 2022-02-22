@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PengajuanModel;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use PDF;
 
 class PengajuanController extends Controller
 {
@@ -186,5 +187,13 @@ class PengajuanController extends Controller
             ->select('*')
             ->simplePaginate(10);
         return view('pengajuan.search', compact('key', 'data'));
+    }
+
+    public function downloadPdf()
+    {
+        $datas = PengajuanModel::all();
+
+        $pdf = PDF::loadview('pengajuan.export_pengajuan', ['datas' => $datas]);
+        return $pdf->stream("DaftarPengajuan-" . date('YmdHis') . ".pdf");
     }
 }

@@ -38,6 +38,12 @@
                     <div class="col-2">
                         <a href="/pengajuan/create" class="btn btn-success">Tambah Pengajuan</a>
                     </div>
+                    <div class="col-2">
+                        <form action="{{ route('pengajuanPdf') }}" method="POST">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-primary">Unduh PDF</button>
+                        </form>
+                    </div>
             </section>
 
             <section class="container-fluid">

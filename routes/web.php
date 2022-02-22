@@ -41,9 +41,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pengajuan/search', [PengajuanModel::class, 'search'])->name('pengajuan.search');
     // Pengajuan List
     Route::post('pengajuan/list', [PengajuanController::class, 'dtPengajuan'])->name('pengajuan.list');
+    Route::post('pengajuanPdf', [PengajuanController::class, 'downloadPdf'])->name('pengajuanPdf');
 
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::post('chartPdf', [LaporanController::class, 'download'])->name('chartPdf');
+    Route::post('chartPdf', [LaporanController::class, 'downloadPdf'])->name('chartPdf');
 
     /* Route untuk super admin */
     Route::middleware(['superadmin'])->group(function () {

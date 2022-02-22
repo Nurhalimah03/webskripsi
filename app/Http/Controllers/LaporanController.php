@@ -31,17 +31,16 @@ class LaporanController extends Controller
         return view('pengajuan.laporan', compact('chart'));
     }
 
-    public function download(Request $request)
+    public function downloadPdf(Request $request)
     {
         $image = $request->image;
         $view  = \View::make('pengajuan.export_chart', compact('image'))->render();
         return PDF::setOptions([
             'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled' => true,
-            'margin' => '4em 1em 4em 1em'
+            'isRemoteEnabled' => true
         ])
             ->loadHtml($view)
             ->setPaper('A4')
-            ->stream(date('YmdHis') . ".pdf");
+            ->stream("GrafikPengajuan-" . date('YmdHis') . ".pdf");
     }
 }
