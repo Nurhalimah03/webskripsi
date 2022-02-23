@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AdminModel;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
@@ -60,7 +61,7 @@ class AdminController extends Controller
     public function insert(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|unique:tbl_admin',
+            'email' => 'required|unique:users',
             'password' => 'required|min:8',
             'nama'     => 'required',
             'jabatan'  => 'required',
@@ -75,16 +76,16 @@ class AdminController extends Controller
             'nohp.required'         => 'No Hp wajib diisi!',
         ]);
 
-        AdminModel::create([
-            'email'  => $request->email,
-            'password'  => $request->password,
-            'nama'      => $request->nama,
+        $data = [
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'name'      => $request->nama,
             'jabatan'   => $request->jabatan,
             'nohp'      => $request->nohp,
+            'role'      => 'admin'
+        ];
 
-        ]);
-
-        /*$this->AdminModel->addData($data);*/
+        $this->AdminModel->addData($data);
         return redirect()->route('akun')->with('pesan', 'Akun Admin Berhasil Ditambahkan!');
     }
 

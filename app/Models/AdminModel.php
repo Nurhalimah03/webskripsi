@@ -13,7 +13,7 @@ class AdminModel extends Model
 
     public $table = "users";
     public $guarded = [];
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'email',
         'name',

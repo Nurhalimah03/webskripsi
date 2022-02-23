@@ -34,7 +34,7 @@
             <section class="container-fluid" style="margin-bottom: 10px;">
                 <div class="row">
                     <div class="col-4">
-                        <a href="/register" class="btn btn-success">Tambah Akun Admin</a>
+                        <a href="/akun/create" class="btn btn-success">Tambah Akun Admin</a>
                     </div>
                 </div>
             </section>

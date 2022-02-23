@@ -55,10 +55,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/akun/detail/{id}', [AdminController::class, 'detail']);
         // Admin List
         Route::post('akun/list', [AdminController::class, 'dtAdmin'])->name('akun.list');
-        // Route Untuk Register
-        Route::get('/register', [RegisterController::class, 'create']);
     });
 
+    // Route Untuk Register
+    // Route::get('/register', [RegisterController::class, 'create']);
     Route::get('/contact', [ContactController::class, 'index']);
 
     /*Route Untuk LogIn */
